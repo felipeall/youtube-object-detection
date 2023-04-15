@@ -8,8 +8,8 @@ from vidgear.gears import CamGear
 
 @dataclass
 class YTObjectDetector:
-    yt_url: str
-    yt_resolution: str = "360p"
+    video_url: str
+    video_resolution: str = "360p"
     model: str = "yolov4-tiny"
     confidence: float = 0.2
 
@@ -17,10 +17,10 @@ class YTObjectDetector:
 
         # Instantiate YouTube video stream
         video = CamGear(
-            source=self.yt_url,
+            source=self.video_url,
             stream_mode=True,
             logging=True,
-            STREAM_RESOLUTION=self.yt_resolution,
+            STREAM_RESOLUTION=self.video_resolution,
         ).start()
 
         while True:
