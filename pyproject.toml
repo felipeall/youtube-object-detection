@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "youtube-video-classifier"
+version = "0.1.0"
+description = ""
+authors = ["Felipe Allegretti <felipe@allegretti.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+opencv-python = "^4.7.0.72"
+vidgear = {extras = ["core"], version = "^0.3.0"}
+cvlib = "^0.2.7"
+tensorflow = "^2.12.0"
+fastapi = "^0.95.1"
+uvicorn = {extras = ["standard"], version = "^0.21.1"}
+jinja2 = "^3.1.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.261"
+
+[tool.ruff]
+line-length = 120
+select = [
+    "F",  # pyflakes
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "I",  # isort
+    "N",  # pep8-naming
+    "COM",  # flake8-commas
+    "Q",  # flake8-quotes
+    "PL",  # pylint
+]
