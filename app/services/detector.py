@@ -7,14 +7,16 @@ from vidgear.gears import CamGear
 
 
 @dataclass
-class YTVideoClassifier:
+class YTObjectDetector:
     yt_url: str
     yt_resolution: str = "360p"
     model: str = "yolov4-tiny"
     confidence: float = 0.2
 
     def run(self):
-        stream = CamGear(
+
+        # Instantiate YouTube video stream
+        video = CamGear(
             source=self.yt_url,
             stream_mode=True,
             logging=True,
@@ -22,15 +24,25 @@ class YTVideoClassifier:
         ).start()
 
         while True:
-            frame = stream.read()
 
+            # Read frame
+            frame = video.read()
+
+            # Break if frame is invalid
             if frame is None:
                 break
 
+            # Detect objects in frame
             bbox, label, conf = detect_common_objects(frame, confidence=self.confidence, model=self.model)
+
+            # Draw boxes for detected objects
             frame_output = draw_bbox(frame, bbox, label, conf)
 
+            # Encode frame as .jpg
             _, frame_encoded = cv2.imencode(".jpg", frame_output)
+
+            # Yield encoded frame to web application
             yield (b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + bytearray(frame_encoded) + b"\r\n")
 
-        stream.stop()
+        # Safely close video stream
+        video.stop()
