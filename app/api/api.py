@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 
-from app.services.classifier import YTVideoClassifier
+from app.services.detector import YTVideoClassifier
 
 api_router = APIRouter()
 templates = Jinja2Templates(directory="templates")

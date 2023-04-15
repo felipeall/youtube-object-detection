@@ -1,1 +1,1 @@
-# youtube-video-classifier
+# youtube-object-detection

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "youtube-video-classifier"
+name = "youtube-object-detection"
 version = "0.1.0"
 description = ""
 authors = ["Felipe Allegretti <felipe@allegretti.me>"]
