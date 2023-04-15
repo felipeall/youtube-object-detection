@@ -10,6 +10,8 @@ from vidgear.gears import CamGear
 class YTVideoClassifier:
     yt_url: str
     yt_resolution: str = "360p"
+    model: str = "yolov4-tiny"
+    confidence: float = 0.2
 
     def run(self):
         stream = CamGear(
@@ -25,7 +27,7 @@ class YTVideoClassifier:
             if frame is None:
                 break
 
-            bbox, label, conf = detect_common_objects(frame, confidence=0.2, model="yolov4-tiny")
+            bbox, label, conf = detect_common_objects(frame, confidence=self.confidence, model=self.model)
             frame_output = draw_bbox(frame, bbox, label, conf)
 
             _, frame_encoded = cv2.imencode(".jpg", frame_output)
