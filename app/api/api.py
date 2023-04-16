@@ -14,6 +14,6 @@ def detection(video_url: str = "https://www.youtube.com/watch?v=7HaJArMDKgI"):
     return StreamingResponse(yt_object_detector.run(), media_type="multipart/x-mixed-replace;boundary=frame")
 
 
-@api_router.get("/")
+@api_router.get("/", include_in_schema=False)
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
