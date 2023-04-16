@@ -16,11 +16,13 @@ class YTObjectDetector:
     def run(self):
 
         # Instantiate YouTube video stream
+        options = {"STREAM_RESOLUTION": self.video_resolution}
+
         video = CamGear(
             source=self.video_url,
             stream_mode=True,
             logging=True,
-            STREAM_RESOLUTION=self.video_resolution,
+            **options,
         ).start()
 
         while True:
@@ -42,7 +44,7 @@ class YTObjectDetector:
             _, frame_encoded = cv2.imencode(".jpg", frame_output)
 
             # Yield encoded frame to web application
-            yield (b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + bytearray(frame_encoded) + b"\r\n")
+            yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + bytearray(frame_encoded) + b"\r\n"
 
         # Safely close video stream
         video.stop()

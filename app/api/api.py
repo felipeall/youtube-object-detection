@@ -8,8 +8,8 @@ api_router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 
-@api_router.get("/video_feed")
-def video_feed(video_url: str = "https://www.youtube.com/watch?v=7HaJArMDKgI"):
+@api_router.get("/detection")
+def detection(video_url: str = "https://www.youtube.com/watch?v=7HaJArMDKgI"):
     yt_object_detector = YTObjectDetector(video_url=video_url)
     return StreamingResponse(yt_object_detector.run(), media_type="multipart/x-mixed-replace;boundary=frame")
 
