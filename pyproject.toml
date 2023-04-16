@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "youtube-object-detection"
 version = "0.1.0"
-description = ""
+description = "Application to process YouTube videos and detect objects within the video frames"
 authors = ["Felipe Allegretti <felipe@allegretti.me>"]
 readme = "README.md"
 
