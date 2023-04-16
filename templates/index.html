@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+      <title>YouTube Object Detection</title>
+
+      <style>
+         body {
+            font-family: "Inter", sans-serif;
+         }
+         .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+         }
+
+         .title {
+            font-size: 3rem;
+         }
+
+         .video_form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            min-width: 30rem;
+            gap: 2rem;
+         }
+
+         .video_url {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #666666;
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+         }
+
+         .btn {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            border: none;
+            font-size: 1rem;
+            font-family: "Inter", sans-serif;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            cursor: pointer;
+         }
+
+      </style>
+   </head>
+   <body>
+      <div class="container">
+          <h1 class="title">YouTube Object Detection</h1>
+         <form method="get" class="video_form" action='/detection{{ video_url }}'>
+            <input type="text" class="video_url" name="video_url" placeholder="Enter a YouTube video URL" aria-label="Id" required="true">
+            <button class="btn" type="submit">Start</button>
+         </form>
+      </div>
+   </body>
+</html>
