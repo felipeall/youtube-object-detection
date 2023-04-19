@@ -38,6 +38,7 @@ $ cd youtube-object-detection
 $ poetry shell
 $ poetry install
 $ make run-local
+$ open localhost:8080
 ````
 
 ### Running locally (Docker)
@@ -45,4 +46,5 @@ $ make run-local
 $ git clone https://github.com/felipeall/youtube-object-detection.git
 $ cd youtube-object-detection
 $ make run
+$ open localhost:8080
 ````
