@@ -1,0 +1,30 @@
+on:
+  workflow_dispatch:
+#  push:
+#    branches: [actions]
+
+name: push-docker-image
+
+jobs:
+  push-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Authenticate GCP
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.DOCKER_PUSHER_SERVICE_ACCOUNT_KEY }}"
+
+      - name: Set up gcloud SDK
+        uses: "google-github-actions/setup-gcloud@v1"
+
+      - name: Configure docker for GCP
+        run: gcloud auth configure-docker southamerica-east1-docker.pkg.dev
+
+      - name: Build docker image
+        run: docker build . -t southamerica-east1-docker.pkg.dev/gcloud-yod/docker-repository/youtube-object-detection-api
+
+      - name: Push to Google Container Registry
+        run: docker push southamerica-east1-docker.pkg.dev/gcloud-yod/docker-repository/youtube-object-detection-api
