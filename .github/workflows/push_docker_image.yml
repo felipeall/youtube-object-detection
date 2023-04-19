@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
-#  push:
-#    branches: [actions]
+  push:
+    branches: [main]
 
 name: push-docker-image
 

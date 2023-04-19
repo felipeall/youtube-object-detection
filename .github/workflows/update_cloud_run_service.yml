@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   push:
-    branches: [actions]
+    branches: [main]
 
 name: update-cloud-run-service
 
