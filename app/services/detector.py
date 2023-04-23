@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from typing import Generator
 
 import cv2
-from cvlib import detect_common_objects
-from cvlib.object_detection import draw_bbox
+import numpy as np
+from cvlib.object_detection import detect_common_objects, draw_bbox
 from vidgear.gears import CamGear
 
 
@@ -15,24 +16,7 @@ class YTObjectDetector:
 
     def run(self):
 
-        # Instantiate YouTube video stream
-        options = {"STREAM_RESOLUTION": self.video_resolution}
-
-        video = CamGear(
-            source=self.video_url,
-            stream_mode=True,
-            logging=True,
-            **options,
-        ).start()
-
-        while True:
-
-            # Read frame
-            frame = video.read()
-
-            # Break if frame is invalid
-            if frame is None:
-                break
+        for frame in self._get_video_frames_generator():
 
             # Detect objects in frame
             bbox, label, conf = detect_common_objects(frame, confidence=self.confidence, model=self.model)
@@ -46,5 +30,25 @@ class YTObjectDetector:
             # Yield encoded frame to web application
             yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + bytearray(frame_encoded) + b"\r\n"
 
-        # Safely close video stream
+    def _get_video_frames_generator(self) -> Generator[np.ndarray, None, None]:
+
+        # Instantiate YouTube video stream
+        options = {"STREAM_RESOLUTION": self.video_resolution}
+
+        video = CamGear(
+            source=self.video_url,
+            stream_mode=True,
+            logging=True,
+            **options,
+        ).start()
+
+        frame = video.read()
+
+        while True:
+            if frame is None:
+                break
+
+            yield frame
+            frame = video.read()
+
         video.stop()
